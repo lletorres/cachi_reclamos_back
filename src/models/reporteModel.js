@@ -18,11 +18,7 @@ const reporteSchema = new mongoose.Schema(
       enum: ["Alumbrado", "Bacheo", "Basura", "Otros"],
       default: "Otros",
     },
-    // Para geolocalización (Google Maps / Leaflet)
-    ubicacion: {
-      latitud: { type: Number, required: true },
-      longitud: { type: Number, required: true },
-    },
+
     fotoUrl: {
       type: String,
       default: "", // Aquí guardaremos la URL de la imagen más adelante
