@@ -19,10 +19,7 @@ const reporteSchema = new mongoose.Schema(
       default: "Otros",
     },
 
-    fotoUrl: {
-      type: String,
-      default: "", // Aquí guardaremos la URL de la imagen más adelante
-    },
+    imageUrl: { type: String, default: null },
     estado: {
       type: String,
       enum: ["Pendiente", "En Proceso", "Resuelto"],
