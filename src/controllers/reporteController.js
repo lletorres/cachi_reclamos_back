@@ -1,4 +1,5 @@
 import * as reporteService from "../services/reporteService.js";
+import Reporte from "../models/reporteModel.js";
 
 export const crearReporte = async (req, res) => {
   try {
@@ -58,6 +59,21 @@ export const getAllReportes = async (req, res) => {
       .sort({ createdAt: -1 })
       .populate("usuario", "nombre");
     res.status(200).json(reportes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const eliminarReporte = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const reporteEliminado = await Reporte.findByIdAndDelete(id);
+
+    if (!reporteEliminado) {
+      return res.status(404).json({ message: "Reporte no encontrado" });
+    }
+
+    res.status(200).json({ message: "Reporte eliminado correctamente" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

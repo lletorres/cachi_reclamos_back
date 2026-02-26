@@ -50,5 +50,14 @@ export const loginUser = async (email, password) => {
     expiresIn: "24h",
   });
 
-  return { user, token };
+  // Retornamos el token y los datos limpios del usuario (SIN la contraseña, pero CON el rol)
+  return {
+    user: {
+      _id: user._id,
+      nombre: user.nombre,
+      email: user.email,
+      rol: user.rol, // <--- Esto es lo que el Frontend usará para mostrar el botón "Panel Admin"
+    },
+    token,
+  };
 };

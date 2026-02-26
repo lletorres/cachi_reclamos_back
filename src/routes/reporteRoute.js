@@ -16,12 +16,15 @@ router.post(
   reporteController.crearReporte,
 );
 
-// Ruta para VER reportes (Pública o protegida, según prefieras. La dejamos pública por ahora)
+// Ruta para VER reportes (Pública o protegida)
 router.get("/", reporteController.obtenerReportes);
 
 router.get("/", reporteController.getAllReportes); //Leer todos
 
 // Ruta para CAMBIAR ESTADO (Protegida)
 router.patch("/:id", verifyToken, reporteController.actualizarEstado);
+
+// Ruta para ELIMINAR reporte (Protegida)
+router.delete("/:id", verifyToken, reporteController.eliminarReporte);
 
 export { router as reporteRoute };

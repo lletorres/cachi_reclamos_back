@@ -34,5 +34,12 @@ const reporteSchema = new mongoose.Schema(
   },
   { timestamps: true }, // Agrega createdAt y updatedAt automáticamente
 );
-
+reporteSchema.set("toJSON", {
+  virtuals: true,
+  transform: (documento, objetoRetornado) => {
+    objetoRetornado.id = objetoRetornado._id; // Crea el 'id' limpio
+    delete objetoRetornado._id; // Borra el '_id' feo
+    delete objetoRetornado.__v; // Borra la versión interna de Mongo
+  },
+});
 export default mongoose.model("Reporte", reporteSchema);
