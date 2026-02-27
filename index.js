@@ -10,7 +10,10 @@ const app = express();
 app.use(
   cors({
     // Reemplaza con la URL real de tu Frontend en Vercel (SIN barra al final)
-    origin: "https://cachi-reclamos-front.vercel.app",
+    origin: [
+      "http://localhost:5173", // Para tus pruebas locales
+      "https://cachi-reclamos-front.vercel.app", // Para producción en la nube
+    ],
     credentials: true, // Permite cookies y headers de autorización
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
