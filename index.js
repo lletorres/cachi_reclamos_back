@@ -7,7 +7,16 @@ import { userRoute } from "./src/routes/userRoute.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    // Reemplaza con la URL real de tu Frontend en Vercel (SIN barra al final)
+    origin: "https://cachi-reclamos-front.vercel.app",
+    credentials: true, // Permite cookies y headers de autorización
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
 app.use(express.json());
 
 connectDB();
