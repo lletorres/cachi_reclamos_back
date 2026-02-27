@@ -5,6 +5,10 @@ import { SECRET } from "../config.js";
 
 // 1. REGISTRAR USUARIO
 export const registerUser = async (userData) => {
+  // Validamos la longitud ANTES de encriptar
+  if (!userData.password || userData.password.length < 6) {
+    throw new Error("La contraseña debe tener al menos 6 caracteres");
+  }
   // A. Verificamos si ya existe el email
   const existingUser = await User.findOne({ email: userData.email });
   if (existingUser) {
