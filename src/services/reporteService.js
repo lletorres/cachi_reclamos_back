@@ -1,4 +1,8 @@
 import Reporte from "../models/reporteModel.js";
+import {
+  enviarEmailAdministrador,
+  enviarEmailConfirmacionUsuario,
+} from "./emailService.js";
 
 // 1. Crear un nuevo reporte
 export const createReporte = async (reporteData, userId) => {
@@ -7,7 +11,18 @@ export const createReporte = async (reporteData, userId) => {
     ...reporteData,
     usuario: userId, // Asociamos el reporte al vecino que lo creó
   });
-  return nuevoReporte;
+
+  // Poblamos la información del usuario para los emails
+  const reporteConUsuario = await nuevoReporte.populate(
+    "usuario",
+    "nombre apellido email",
+  );
+
+  // Enviamos los emails de forma asincrónica (sin esperar respuesta)
+  enviarEmailAdministrador(reporteConUsuario);
+  enviarEmailConfirmacionUsuario(reporteConUsuario.usuario, reporteConUsuario);
+
+  return reporteConUsuario;
 };
 
 // 2. Obtener todos los reportes (para el admin o el mapa)
