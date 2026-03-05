@@ -17,7 +17,15 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "cachi_activa_evidencias", // Así se llamará la carpeta en tu Cloudinary
-    allowed_formats: ["jpg", "png", "jpeg", "webp"], // Formatos aceptados
+    format: async (req, file) => "webp", // 🌟 Convierte TODO a WebP (súper liviano)
+    transformation: [
+      {
+        width: 1000, // Ancho máximo de 1000 píxeles
+        height: 1000, // Alto máximo de 1000 píxeles
+        crop: "limit", // Solo la achica si es más grande que 1000px, no la deforma
+        quality: "auto", // 🌟 Cloudinary decide cuánta calidad quitar sin que el ojo humano lo note
+      },
+    ],
   },
 });
 
