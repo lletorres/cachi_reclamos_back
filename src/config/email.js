@@ -1,51 +1,20 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Verificar que las variables de entorno estén configuradas
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-  console.error(
-    "❌ ERROR CRÍTICO: Las variables EMAIL_USER o EMAIL_PASSWORD no están configuradas",
-  );
-  console.error("Variables disponibles:", {
-    EMAIL_USER: process.env.EMAIL_USER ? "✅ Configurada" : "❌ Falta",
-    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD ? "✅ Configurada" : "❌ Falta",
-    ADMIN_EMAIL: process.env.ADMIN_EMAIL ? "✅ Configurada" : "❌ Falta",
-  });
+// Verificar que la API Key está configurada
+if (!process.env.RESEND_API_KEY) {
+  console.error("❌ ERROR CRÍTICO: RESEND_API_KEY no está configurada");
 }
 
-// Configurar el transporte de email con puerto 587 (TLS)
-// Este puerto funciona mejor en servidores como Render
-export const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // true = 465, false = 587 (TLS)
-  requireTLS: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-  connectionUrl: undefined,
-});
+// Instancia de Resend
+export const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Verificar que la configuración de email es válida
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ Error en la configuración de email:");
-    console.error("    Código:", error.code);
-    console.error("    Mensaje:", error.message);
-    console.error("    EMAIL_USER:", process.env.EMAIL_USER);
-    console.error(
-      "    EMAIL_PASSWORD configurada:",
-      !!process.env.EMAIL_PASSWORD,
-    );
-  } else {
-    console.log("✅ Email service listo para enviar mensajes");
-    console.log("    HOST: smtp.gmail.com");
-    console.log("    PORT: 587 (TLS)");
-    console.log("    EMAIL_USER:", process.env.EMAIL_USER);
-  }
-});
-
+// Email desde el cual se enviarán los correos
+export const EMAIL_FROM = process.env.EMAIL_FROM || "onboarding@resend.dev";
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+
+console.log("✅ Resend configurado correctamente");
+console.log("    EMAIL_FROM:", EMAIL_FROM);
+console.log("    ADMIN_EMAIL:", ADMIN_EMAIL);
