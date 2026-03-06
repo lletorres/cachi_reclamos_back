@@ -28,9 +28,12 @@ export const enviarEmailAdministrador = async (reporte) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("✅ Email enviado al administrador");
+    console.log("✅ Email enviado al administrador:", ADMIN_EMAIL);
   } catch (error) {
-    console.error("❌ Error al enviar email al administrador:", error);
+    console.error("❌ Error al enviar email al administrador:");
+    console.error("    Destinatario:", ADMIN_EMAIL);
+    console.error("    Error:", error.message);
+    console.error("    Código:", error.code);
   }
 };
 
@@ -68,8 +71,11 @@ export const enviarEmailConfirmacionUsuario = async (usuario, reporte) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("✅ Email de confirmación enviado al usuario");
+    console.log("✅ Email de confirmación enviado a:", usuario.email);
   } catch (error) {
-    console.error("❌ Error al enviar email de confirmación:", error);
+    console.error("❌ Error al enviar email de confirmación:");
+    console.error("    Destinatario:", usuario.email);
+    console.error("    Error:", error.message);
+    console.error("    Código:", error.code);
   }
 };
