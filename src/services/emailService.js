@@ -17,7 +17,7 @@ export const enviarEmailAdministrador = async (reporte) => {
             <p><strong>Descripción:</strong><br>${reporte.descripcion}</p>
             <p><strong>Usuario:</strong> ${reporte.usuario.nombre}</p>
             <p><strong>Email del Usuario:</strong> ${reporte.usuario.email}</p>
-            <p><strong>Fecha:</strong> ${new Date(reporte.createdAt).toLocaleString("es-AR")}</p>
+            <p><strong>Fecha:</strong> ${new Date(reporte.createdAt).toLocaleString("es-AR", { timeZone: "America/Argentina/Buenos_Aires" })}</p>
             <p><strong>Estado:</strong> ${reporte.estado}</p>
             ${reporte.imageUrl ? `<p><strong>Imagen:</strong> <a href="${reporte.imageUrl}">Ver imagen</a></p>` : ""}
           </div>
