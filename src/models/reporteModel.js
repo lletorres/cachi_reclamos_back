@@ -15,8 +15,21 @@ const reporteSchema = new mongoose.Schema(
     },
     categoria: {
       type: String,
-      enum: ["Alumbrado", "Bacheo", "Basura", "Otros"],
-      default: "Otros",
+      required: true,
+      enum: [
+        "Calles",
+        "Alumbrado",
+        "Limpieza",
+        "Desagües",
+        "Espacios Verdes",
+        "Plazas",
+        "Tránsito",
+        "Agua",
+        "Control",
+        "Obras",
+        "Seguridad",
+        "Otros",
+      ],
     },
 
     imageUrl: { type: String, default: null },
