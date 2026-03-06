@@ -15,7 +15,7 @@ export const enviarEmailAdministrador = async (reporte) => {
             <p><strong>Título:</strong> ${reporte.titulo}</p>
             <p><strong>Categoría:</strong> ${reporte.categoria}</p>
             <p><strong>Descripción:</strong><br>${reporte.descripcion}</p>
-            <p><strong>Usuario:</strong> ${reporte.usuario.nombre} ${reporte.usuario.apellido}</p>
+            <p><strong>Usuario:</strong> ${reporte.usuario.nombre}</p>
             <p><strong>Email del Usuario:</strong> ${reporte.usuario.email}</p>
             <p><strong>Fecha:</strong> ${new Date(reporte.createdAt).toLocaleString("es-AR")}</p>
             <p><strong>Estado:</strong> ${reporte.estado}</p>
