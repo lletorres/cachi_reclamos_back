@@ -6,7 +6,8 @@ import {
   updateRol,
   deleteUser,
 } from "../controllers/userController.js";
-import { verifyToken } from "../middlewares/verifyToken.js"; // Importamos el middleware
+import { verifyToken } from "../middlewares/verifyToken.js";
+import { verifyRole } from "../middlewares/verifyRole.js";
 
 const router = express.Router();
 
@@ -15,8 +16,8 @@ router.post("/register", register);
 router.post("/login", login);
 
 // Rutas protegidas (Para el Admin)
-router.get("/", verifyToken, getAllUsers);
-router.patch("/:id/rol", verifyToken, updateRol);
-router.delete("/:id", verifyToken, deleteUser);
+router.get("/", verifyToken, verifyRole(["admin"]), getAllUsers);
+router.patch("/:id/rol", verifyToken, verifyRole(["admin"]), updateRol);
+router.delete("/:id", verifyToken, verifyRole(["admin"]), deleteUser);
 
 export { router as userRoute };
